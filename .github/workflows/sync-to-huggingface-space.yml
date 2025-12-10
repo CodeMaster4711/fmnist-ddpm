@@ -13,6 +13,9 @@ on:
       - 'diffusion/**'
       - 'utils.py'
       - 'README_SPACE.md'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - 'docker-compose.yml'
       - '.github/workflows/sync-to-huggingface-space.yml'
 
 jobs:
@@ -44,6 +47,10 @@ jobs:
           cp config.py /tmp/hf-space/
           cp utils.py /tmp/hf-space/
           cp README_SPACE.md /tmp/hf-space/README.md
+
+          # Copy Docker files
+          cp Dockerfile /tmp/hf-space/
+          cp .dockerignore /tmp/hf-space/
 
           # Copy directories
           cp -r models_release /tmp/hf-space/
