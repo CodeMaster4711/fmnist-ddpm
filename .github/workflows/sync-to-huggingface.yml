@@ -22,7 +22,7 @@ jobs:
 
           # The Hugging Face repo id you want to sync to
           # Replace 'username/reponame' with your Hugging Face username and desired repo name
-          huggingface_repo_id: 'username/fmnist-ddpm'
+          huggingface_repo_id: "codemaster4711/fmnist-ddpm"
 
           # Hugging Face token with write access
           # Using HUGGINGFACE_TOKEN secret from GitHub repo settings
@@ -30,7 +30,7 @@ jobs:
 
           # The type of repo you are syncing to: model, dataset, or space
           # Using 'model' for this DDPM model repository
-          repo_type: 'model'
+          repo_type: "model"
 
           # If true and the Hugging Face repo doesn't already exist, it will be created
           # as a private repo
@@ -41,4 +41,4 @@ jobs:
 
           # If provided, subdirectory will determine which directory of the repo will be synced
           # Leave empty to sync the entire repo
-          subdirectory: ''
+          subdirectory: ""
