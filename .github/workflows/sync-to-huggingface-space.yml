@@ -1,0 +1,81 @@
+name: Sync to Hugging Face Space
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'app.py'
+      - 'requirements.txt'
+      - 'models_release/**'
+      - 'config.py'
+      - 'models/**'
+      - 'diffusion/**'
+      - 'utils.py'
+      - 'README_SPACE.md'
+      - '.github/workflows/sync-to-huggingface-space.yml'
+
+jobs:
+  sync-to-space:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Hugging Face Hub
+        run: pip install huggingface_hub
+
+      - name: Prepare Space files
+        run: |
+          # Create temporary directory for Space files
+          mkdir -p /tmp/hf-space
+
+          # Copy necessary files
+          cp app.py /tmp/hf-space/
+          cp requirements.txt /tmp/hf-space/
+          cp config.py /tmp/hf-space/
+          cp utils.py /tmp/hf-space/
+          cp README_SPACE.md /tmp/hf-space/README.md
+
+          # Copy directories
+          cp -r models_release /tmp/hf-space/
+          cp -r models /tmp/hf-space/
+          cp -r diffusion /tmp/hf-space/
+
+          # Create .gitattributes for LFS
+          echo "*.pth filter=lfs diff=lfs merge=lfs -text" > /tmp/hf-space/.gitattributes
+          echo "*.pt filter=lfs diff=lfs merge=lfs -text" >> /tmp/hf-space/.gitattributes
+
+          # List files to verify
+          ls -lha /tmp/hf-space/
+
+      - name: Push to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+        run: |
+          python -c "
+          from huggingface_hub import HfApi
+          import os
+
+          api = HfApi(token=os.environ['HF_TOKEN'])
+
+          # Upload to Space
+          api.upload_folder(
+              folder_path='/tmp/hf-space',
+              repo_id='Codemaster4711/fmnist-ddpm-generator',
+              repo_type='space',
+              commit_message='Sync from GitHub: ${{ github.sha }}',
+              ignore_patterns=['.git*', '__pycache__', '*.pyc', '.DS_Store']
+          )
+
+          print('✅ Successfully synced to Hugging Face Space!')
+          print('🚀 Space URL: https://huggingface.co/spaces/Codemaster4711/fmnist-ddpm-generator')
+          "
