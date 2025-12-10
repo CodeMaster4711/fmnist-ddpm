@@ -1,0 +1,44 @@
+name: Sync to Hugging Face
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Sync to Hugging Face
+        uses: nateraw/huggingface-sync-action@v0.0.5
+        with:
+          # The github repo you are syncing from
+          github_repo_id: ${{ github.repository }}
+
+          # The Hugging Face repo id you want to sync to
+          # Replace 'username/reponame' with your Hugging Face username and desired repo name
+          huggingface_repo_id: 'username/fmnist-ddpm'
+
+          # Hugging Face token with write access
+          # Using HUGGINGFACE_TOKEN secret from GitHub repo settings
+          hf_token: ${{ secrets.HUGGINGFACE_TOKEN }}
+
+          # The type of repo you are syncing to: model, dataset, or space
+          # Using 'model' for this DDPM model repository
+          repo_type: 'model'
+
+          # If true and the Hugging Face repo doesn't already exist, it will be created
+          # as a private repo
+          private: false
+
+          # If repo type is space, specify a space_sdk (not needed for model type)
+          # space_sdk: 'gradio'
+
+          # If provided, subdirectory will determine which directory of the repo will be synced
+          # Leave empty to sync the entire repo
+          subdirectory: ''
