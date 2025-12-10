@@ -1,0 +1,58 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+.venv
+venv
+env
+
+# Training artifacts
+outputs/
+wandb/
+data/
+generated_samples/
+samples/
+logs/
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Documentation
+README.md
+README_SPACE.md
+*.md
+
+# CI/CD
+.github/
+
+# Environment
+.env
+.env.example
+
+# Jupyter
+*.ipynb
+.ipynb_checkpoints
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Training scripts (not needed for inference)
+train.py
+test_pipeline.py
+sample.py
