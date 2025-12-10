@@ -70,12 +70,12 @@ jobs:
           # Upload to Space
           api.upload_folder(
               folder_path='/tmp/hf-space',
-              repo_id='Codemaster4711/fmnist-ddpm-generator',
+              repo_id='CodeMaster4711/fmnist-ddpm',
               repo_type='space',
               commit_message='Sync from GitHub: ${{ github.sha }}',
               ignore_patterns=['.git*', '__pycache__', '*.pyc', '.DS_Store']
           )
 
           print('✅ Successfully synced to Hugging Face Space!')
-          print('🚀 Space URL: https://huggingface.co/spaces/Codemaster4711/fmnist-ddpm-generator')
+          print('🚀 Space URL: https://huggingface.co/spaces/CodeMaster4711/fmnist-ddpm')
           "
