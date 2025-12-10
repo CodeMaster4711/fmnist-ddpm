@@ -19,7 +19,6 @@ california-housing-prices.zip
 
 # Models & Weights
 *.pkl
-*.pth
 *.joblib
 *.h5
 *.npy
@@ -49,11 +48,12 @@ data/
 wandb-data/
 
 # Training Outputs
-outputs/
 generated_samples/
-checkpoints/
 samples/
 logs/
+
+# Ignore entire outputs directory (training artifacts)
+outputs/
 
 # Experiment Tracking
 wandb/
@@ -66,12 +66,14 @@ datasets/
 *.tar
 *.tar.gz
 
-# Model Files
-*.pth
-*.pt
+# Model Files (general)
 *.ckpt
 *.safetensors
 *.bin
+
+# Allow models_release directory and all its contents
+!models_release/
+!models_release/**
 
 # Python
 __pycache__/

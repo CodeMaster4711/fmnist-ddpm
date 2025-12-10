@@ -1,0 +1,16 @@
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.24.0
+Pillow>=9.5.0
+
+# Training & Logging
+wandb>=0.15.0
+tqdm>=4.65.0
+matplotlib>=3.7.0
+
+# Gradio UI
+gradio>=4.0.0
+
+# Utilities
+python-dotenv>=1.0.0
