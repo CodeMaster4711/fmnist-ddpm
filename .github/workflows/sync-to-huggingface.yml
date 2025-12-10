@@ -20,13 +20,26 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Hugging Face CLI
+      - name: Install Hugging Face Hub
         run: pip install huggingface_hub
 
       - name: Push to Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          huggingface-cli upload Codemaster4711/fmnist-ddpm . . --repo-type=model --create-pr=false --commit-message="Sync from GitHub"
+          python -c "
+          from huggingface_hub import HfApi
+          import os
+
+          api = HfApi(token=os.environ['HF_TOKEN'])
+
+          # Upload all files from current directory
+          api.upload_folder(
+              folder_path='.',
+              repo_id='Codemaster4711/fmnist-ddpm',
+              repo_type='model',
+              commit_message='Sync from GitHub',
+              ignore_patterns=['.git*', '__pycache__', '*.pyc', '.env']
+          )
+          print('✅ Successfully synced to Hugging Face!')
+          "
