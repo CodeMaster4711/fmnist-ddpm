@@ -31,14 +31,3 @@ jobs:
           # The type of repo you are syncing to: model, dataset, or space
           # Using 'model' for this DDPM model repository
           repo_type: "model"
-
-          # If true and the Hugging Face repo doesn't already exist, it will be created
-          # as a private repo
-          private: false
-
-          # If repo type is space, specify a space_sdk (not needed for model type)
-          # space_sdk: 'gradio'
-
-          # If provided, subdirectory will determine which directory of the repo will be synced
-          # Leave empty to sync the entire repo
-          subdirectory: ""
